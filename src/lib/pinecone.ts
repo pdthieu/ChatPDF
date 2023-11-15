@@ -7,7 +7,6 @@ import {
 } from "@pinecone-database/doc-splitter";
 import { getEmbeddings } from "./embeddings";
 import md5 from "md5";
-import { convertToAscii } from "./utils";
 
 let pinecone: Pinecone | null = null;
 
