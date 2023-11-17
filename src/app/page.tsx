@@ -1,12 +1,27 @@
 import FileUpload from "@/components/FileUpload";
 import { Button } from "@/components/ui/button";
+import { db } from "@/lib/db";
+import { chats } from "@/lib/db/schema";
 import { UserButton, auth } from "@clerk/nextjs";
-import { LogIn } from "lucide-react";
+import { eq } from "drizzle-orm";
+import { ArrowRight, LogIn } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
   const { userId } = await auth();
   const isAuth = !!userId;
+  let firstChat;
+
+  if (userId) {
+    const _chats = await db
+      .select()
+      .from(chats)
+      .where(eq(chats.userId, userId));
+    if (_chats) {
+      firstChat = _chats[0];
+    }
+  }
+
   return (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -17,7 +32,15 @@ export default async function Home() {
           </div>
 
           <div className="flex mt-2">
-            {isAuth && <Button>Go to Chats</Button>}
+            {isAuth && firstChat && (
+              <>
+                <Link href={`/chat/${firstChat.id}`}>
+                  <Button>
+                    Go to Chats <ArrowRight className="ml-2" />
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           <p className="max-w-xl mt-2 text-lg text-slate-600">
