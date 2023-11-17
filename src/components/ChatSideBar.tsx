@@ -2,10 +2,11 @@
 
 import { DrizzleChat } from "@/lib/db/schema";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { MessageCircle, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 
 interface ChatSideBarProps {
   chats: DrizzleChat[];
@@ -13,6 +14,19 @@ interface ChatSideBarProps {
 }
 
 const ChatSideBar = ({ chats, chatId }: ChatSideBarProps) => {
+  const [loading, setLoading] = useState(false);
+  const handleSubcription = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("/api/stripe");
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full h-screen p-4 text-gray-200 bg-gray-900">
       <Link href={"/"}>
@@ -48,6 +62,13 @@ const ChatSideBar = ({ chats, chatId }: ChatSideBarProps) => {
           <Link href="/">Home</Link>
           <Link href="/">Source</Link>
         </div>
+        <Button
+          className="mt-2 text-white bg-slate-700"
+          disabled={loading}
+          onClick={handleSubcription}
+        >
+          Upgrade To Pro!
+        </Button>
       </div>
     </div>
   );
