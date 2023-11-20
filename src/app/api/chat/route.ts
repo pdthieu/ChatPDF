@@ -6,8 +6,6 @@ import { chats, messages as _messages } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export const runtion = "edge";
-
 const config = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });

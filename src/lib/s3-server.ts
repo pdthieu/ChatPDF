@@ -1,7 +1,7 @@
 import { S3 } from "@aws-sdk/client-s3";
 import fs from "fs";
 
-export async function downloadFromS3(file_key: string) {
+export async function downloadFromS3(file_key: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
       const s3 = new S3({
@@ -18,7 +18,7 @@ export async function downloadFromS3(file_key: string) {
       };
 
       const obj = await s3.getObject(params);
-      const file_name = `/tmp/pdf-${Date.now()}.pdf`;
+      const file_name = `/tmp/pdf-${Date.now().toString()}.pdf`;
 
       if (obj.Body instanceof require("stream").Readable) {
         // AWS-SDK v3 has some issues with their typescript definitions, but this works
@@ -35,6 +35,7 @@ export async function downloadFromS3(file_key: string) {
       }
     } catch (error) {
       console.error(error);
+      reject(error);
       return null;
     }
   });
