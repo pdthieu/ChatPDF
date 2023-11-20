@@ -49,7 +49,7 @@ export default async function Home() {
 
           <p className="max-w-xl mt-2 text-lg text-slate-600">
             Join millions of students, researchers and professionals to
-            instantly anwer questions and understand research with AI
+            instantly answer questions and understand research with AI
           </p>
 
           <div className="w-full mt-4">
