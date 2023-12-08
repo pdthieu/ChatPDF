@@ -1,6 +1,6 @@
 ![Build and Deploy Full Stack ChatPDF](https://chatpdf-hp.s3.ap-southeast-1.amazonaws.com/poster.png)
 
-[Link to Website](https://chat-cp74qgnat-geschmackcr7.vercel.app/)
+[Link to Website](https://chat-pdf-geschmackcr7.vercel.app/)
 
 # Overview
 
