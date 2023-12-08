@@ -52,6 +52,7 @@ export async function loadS3IntoPinecone(fileKey: string) {
   console.log("inserting vectors into pinecone");
   await pineconeIndex.upsert(vectors);
   
+  // only use 1 namespace, billing to use more namespaces
   // const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
   // await namespace.upsert(vectors);
 
